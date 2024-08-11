@@ -74,8 +74,7 @@ pytest --asyncio-mode=auto
 ## 프로젝트 구조
 프로젝트 디렉토리 구조와 애플리케이션 구조를 소개합니다.
 
-
-![](../../../../Downloads/제목 없는 다이어그램.drawio.png)
+![img.png](img.png)
 
 ```
 /mydata-agent
