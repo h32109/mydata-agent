@@ -147,6 +147,7 @@ pytest --asyncio-mode=auto
 - **경로**: `/api/v1/langchain/mydata/vs`
 - **메소드**: `post`
 - **설명**: 데이터를 load하고 chunking한 후 vectorestore에 저장합니다. 이후 시도되는 Retrive는 해당 vectorestore로 진행됩니다.
+- jhgan/ko-sbert-multitask, upskyy/kf-deberta-multitask, BAAI/bge-m3 해당 모델은 저장된 store가 있어 빠릅니다.
 - #### 요청 본문
 | 필드명             | 타입  | 설명                             | 필수 여부 |
 |-----------------|-----|--------------------------------|-------|
