@@ -50,6 +50,14 @@ uvicorn main:app
 # 필요한 라이브러리를 설치합니다.
 pip install -r requirements-test.txt
 ```
+### 환경 변수 설정:
+```bash
+# OPENAI KEY 설정
+mydata-agent/agent/config/test.env
+...
+OPENAI_API_KEY=""
+...
+```
 ### 테스트 실행:
 ```bash
 # 테스트를 시작합니다.
