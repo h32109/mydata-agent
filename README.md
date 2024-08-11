@@ -34,7 +34,7 @@ export PROFILE="prod"
 # OPENAI KEY 설정
 mydata-agent/agent/config/prod.env
 ...
-OPENAI_API_KEY=""
+OPENAI_API_KEY="YOUR_API_KEY"
 ...
 ```
 ### 애플리케이션 실행:
@@ -55,7 +55,7 @@ pip install -r requirements-test.txt
 # OPENAI KEY 설정
 mydata-agent/agent/config/test.env
 ...
-OPENAI_API_KEY=""
+OPENAI_API_KEY="YOUR_API_KEY"
 ...
 ```
 ### 테스트 실행:
