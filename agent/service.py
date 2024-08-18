@@ -1,35 +1,33 @@
-import asyncio
+import typing as t
 
 
 class ServiceBase:
-    def configuration(self, config):
+    def configuration(self, settings):
         raise NotImplementedError
 
 
-class ServiceManager:
-    __services = {}
+class Service:
+    __services: t.Dict[str, ServiceBase] = {}
 
     @classmethod
-    def add_service(mgr, svc):
-        service_name = svc.__class__.__name__
-        setattr(mgr, service_name, svc)
-        mgr.__services[service_name] = svc
-        return svc
+    def add_service(cls, service_class: t.Type[ServiceBase]) -> ServiceBase:
+        service_name = service_class.__name__
+        if service_name in cls.__services:
+            return cls.__services[service_name]
+
+        service = service_class()
+        setattr(cls, service_name, service)
+        cls.__services[service_name] = service
+        return service
 
     @classmethod
-    async def init(mgr, config):
-        tasks = []
-        for svc in mgr.__services.values():
-            config_method = getattr(svc, 'configuration', None)
-            if callable(config_method):
-                if asyncio.iscoroutinefunction(config_method):
-                    tasks.append(config_method(config))
-                else:
-                    loop = asyncio.get_running_loop()
-                    tasks.append(loop.run_in_executor(None, config_method, config))
-        if tasks:
-            await asyncio.gather(*tasks)
+    def init(cls, settings):
+        for service in cls.__services.values():
+            service.configuration(settings)
 
     @classmethod
-    def get(mgr, service_name):
-        return mgr.__services[service_name]
+    def get(cls, service_name: str) -> ServiceBase:
+        try:
+            return cls.__services[service_name]
+        except KeyError:
+            raise ValueError(f"Service '{service_name}' not found.")

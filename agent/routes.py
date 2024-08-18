@@ -1,14 +1,22 @@
 from fastapi import APIRouter
+from typing import Tuple
 
-from agent.chatgpt.endpoints import router as chatgpt_router
-from agent.view.endpoints import router as _view_router
-from agent.langchain_.endpoints import router as langchain_router
+from agent.rag.endpoints import router as rag_router
+from agent.view.endpoints import router as view_router
+from agent.preprocess.endpoints import router as preprocess_router
 
-api_router = APIRouter()
 
-api_router.include_router(chatgpt_router, prefix='/chatgpt', tags=["ChatGPT"])
-api_router.include_router(langchain_router, prefix='/langchain', tags=["ChatGPT"])
+def create_routers() -> Tuple[APIRouter, APIRouter]:
+    api = APIRouter()
+    view = APIRouter()
 
-view_router = APIRouter()
+    router_configs = [
+        (api, rag_router, '/rag', ["RAG"]),
+        (api, preprocess_router, '/preprocess', ["PreProcess"]),
+        (view, view_router, '/agent', ["View"])
+    ]
 
-view_router.include_router(_view_router, prefix='/view', tags=["View"])
+    for p, c, prefix, tags in router_configs:
+        p.include_router(c, prefix=prefix, tags=tags)
+
+    return api, view
