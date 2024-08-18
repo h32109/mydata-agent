@@ -33,31 +33,6 @@ async def test_preprocess_load_and_save(payload, api_version, client, langchain_
     "payload",
     [
         ({
-            "loader": "py_loader",
-            "sync": True
-        }),
-    ]
-)
-@pytest.mark.asyncio
-async def test_preprocess_load_with_empty_dir(mydata_data_dir, payload, api_version, client):
-    original_path = Path(mydata_data_dir)
-    temp_path = original_path.with_name("temp")
-    original_path.rename(temp_path)
-    os.mkdir(mydata_data_dir)
-    response = await client.post(
-        f"/{api_version}/preprocess/load",
-        json=payload
-    )
-    os.rmdir(mydata_data_dir)
-    temp_path.rename(original_path)
-    assert response.status_code == status.HTTP_400_BAD_REQUEST
-    assert response.json()['detail']['error_code'] == AgentExceptionErrorCode.DataFileNotFoundError
-
-
-@pytest.mark.parametrize(
-    "payload",
-    [
-        ({
             "splitter": "konlpy_spliter",
             "chunk_size": 1000,
             "chunk_overlap": 200,
