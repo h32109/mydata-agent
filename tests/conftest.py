@@ -3,6 +3,7 @@ import os
 import pytest
 from async_asgi_testclient import TestClient
 
+os.environ["PROFILE"] = "test"
 
 @pytest.fixture
 def get_service():
