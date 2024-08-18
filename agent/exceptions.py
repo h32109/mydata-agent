@@ -6,7 +6,7 @@ class AgentExceptionErrorCode(str, enum.Enum):
     # common
     CPUUsageHighError = "CO00"
 
-    # langchain
+    # preprocess
     ModelNotFoundError = "HF00"
     DataFileNotFoundError = "HF01"
     SplitterParameterError = "HF02"
@@ -37,7 +37,7 @@ class BaseAgentException(Exception):
     def __repr__(self):
         return f"<{self.__class__.__name__}:{self.error_code.value}>"
 
-    def raise_http(self, status_code: int):
+    def raise_http(self, status_code: int) -> fa.HTTPException:
         return fa.HTTPException(
             status_code=status_code,
             detail={

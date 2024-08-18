@@ -1,0 +1,165 @@
+{
+	"info": {
+		"_postman_id": "1339b281-4a89-4152-9fb4-7647dd8efb83",
+		"name": "Mydata-agent",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11178449"
+	},
+	"item": [
+		{
+			"name": "rag retrieve",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"토큰이 중복 발급되었을 경우 어떻게 되나요?\",\n    \"chain_tpye\": \"stuff\",\n    \"retriever\": \"ensemble_retriever\",\n    \"search_type\": \"similarity\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/rag/retrieve",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"rag",
+						"retrieve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "preprocess data read",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"loader\": \"unstructured_loader\",\n    \"sync\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/preprocess/load",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"preprocess",
+						"load"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "preprocess chunk",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"splitter\": \"character_spliter\",\n    \"chunk_size\": 1000,\n    \"chunk_overlap\": 200\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/preprocess/chunk",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"preprocess",
+						"chunk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "preprocess save vector store",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"embedding_model\": \"ko_sbert_multitask\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/preprocess/vs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"preprocess",
+						"vs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "preprocess search",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"토큰이 중복 발급되었을 경우 어떻게 되나요?\",\n    \"k\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/preprocess/search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"preprocess",
+						"search"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
